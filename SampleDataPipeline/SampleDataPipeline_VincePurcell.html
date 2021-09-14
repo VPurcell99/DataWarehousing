@@ -14264,6 +14264,8 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#what are we running?</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version</span><span class="p">)</span>
 </pre></div>
 
@@ -14537,6 +14539,77 @@ committing row 40000
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Display-tweets-after-standardizing-Date-Time">Display tweets after standardizing Date-Time<a class="anchor-link" href="#Display-tweets-after-standardizing-Date-Time">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;tweets.db&#39;</span><span class="p">)</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;select * from tweets limit 25&#39;</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>(&#39;2020-07-25 04:43&#39;, &#39;1286884650187718656&#39;, &#39;rt @platinumjab: shiv is the seed of the seed of the seed. shiv is the first seed. shiv is the beginning of the beginning of the beginnin&#39;, &#39;Vijaykant087&#39;, 1)
+(&#39;2020-07-25 04:43&#39;, &#39;1286884650175074304&#39;, &#39;rt @catvalente: every millennial i know is locked in their house doomscrolling &amp; baking bread while their parents think masks are poisonous&#39;, &#39;AndaliteBandit&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539359416321&#39;, &#39;rt @ghettofabulos0: candy - partynextdoor x nipsey hussle. thats the tweet.&#39;, &#39;reignofmaya&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539355459586&#39;, &#39;rt @realjameswoods: #ripbernelltremmell // this hate crime isnt getting much attention from the democrat propaganda machine, but im hopin&#39;, &#39;BrojackNorseman&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539330211840&#39;, &#39;rt @iunarmins: do you see the problem https://t.co/8jgulntrnf&#39;, &#39;Franwfilter&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539326099456&#39;, &#39;rt @cloydrivers: dr. fauci, the man who insists we must wear masks and social distance.... merica. https://t.co/wgwvigxycq&#39;, &#39;LiamO2132&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539326070784&#39;, &#39;this week @maltapolice comm. gaf said that there is no basis for a @europol joint investigation team [jit]. re https://t.co/nmcbexecwn&#39;, &#39;repubblikaMT&#39;, 0)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539288104960&#39;, &#39;rt @tedcruz: john roberts has abandoned his oath. but, on the upside, maybe nevada churches should set up craps tables? then they could&#39;, &#39;12BravoGran&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539275767808&#39;, &#39;@thejackvaughan i live in 37919 but i feel like its the suburbs fleeing the gop effect. if you look at hd-13 preci https://t.co/7w2kkxgf9a&#39;, &#39;jackking517&#39;, 0)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539254599682&#39;, &#39;rt @wolardbert: pretty sure these are my fave conversation options in the game https://t.co/8cwvmucdvb&#39;, &#39;WeedSenpai&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539250593794&#39;, &#39;rt @kbpats8012: @todayshow @williegeist @savannahguthrie dr. birx is part of the problem we have today. she got enthralled with trump and n&#39;, &#39;Virgmatt&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539250409472&#39;, &#39;rt @aegyodobby: the only glow up that matters, period. https://t.co/uv79qam2sz&#39;, &#39;kyuternal&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539246325761&#39;, &#39;rt @danielsgoldman: its one thing for a wannabe fascist to cheat to win an election and become president. but its altogether another thin&#39;, &#39;beachnut758&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539242029056&#39;, &#39;@pradeeponelife bro wish you a happiest birthday ever. looking forward to the good news. a thalapathy padam from you&#39;, &#39;arunmanoj489&#39;, 0)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539225419781&#39;, &#39;this!! @joebiden should make clear the team that he would hope to put in place. doesnt need to be concrete. but ou https://t.co/vxmc50yhdk&#39;, &#39;AquaLunaSAT&#39;, 0)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539225247745&#39;, &#39;rt @7ologie: 7ologie is a project dedicated to the bts fanartist community. we built an interactive website that celebrates the 7 years of&#39;, &#39;hopechmmy&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539208437760&#39;, &#39;rt @dearhyunjaes: when younghoon &amp; juyeon first gave the hint, hyunjae still guessed wrong yh: how are you! (sounds like hawaii) jy: i&#39;, &#39;101_tuna&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539196055553&#39;, &#39;rt @arfaarehman: period pain on the first day is literally near death experience&#39;, &#39;nechelletiana&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539183484928&#39;, &#39;rt @ap0is0n0us: sub gaming while theyre sat in their doms lap. eyes fixed on the screen as they subconsciously move around on one spot, ca&#39;, &#39;JJKXW&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539183411200&#39;, &#39;rt @popzonebr: e a aclamao j chegou! telegraph, the guardian, the sun e inewspaper do nota mxima para #folklore, oitavo lbum de taylo&#39;, &#39;Euaviseik7&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539170721793&#39;, &#39;rt @entrepreneur: take a step back from being the scary boss. https://t.co/ncyms2kjqw&#39;, &#39;OlgaSixta&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539158126598&#39;, &#39;rt @watchmarquee: bill murray with the 7th inning stretch! https://t.co/jdtmnkoabf&#39;, &#39;LEISUREGODDESS&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539124527106&#39;, &#39;rt @diiolive: 2020 https://t.co/99uaftvlfx&#39;, &#39;The_hungry____&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539116163072&#39;, &#39;rt @jinxstrology: leo sun: are able to create new ideas or express themselves wholeheartedly. leo sun people must learn not to dim their li&#39;, &#39;angelxfall&#39;, 1)
+(&#39;2020-07-25 05:06&#39;, &#39;1286890539082641408&#39;, &#39;@kylegriffin1 @aoc the demonization of aoc by the right is heading into some very dangerous territory, their rhetor https://t.co/u2nmjy0d1m&#39;, &#39;mikelkaz&#39;, 0)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Homework-Part-2">Homework Part 2<a class="anchor-link" href="#Homework-Part-2">&#182;</a></h3><h5 id="Wrote-functions-for-datetime-and-time">Wrote functions for datetime and time<a class="anchor-link" href="#Wrote-functions-for-datetime-and-time">&#182;</a></h5>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14637,7 +14710,78 @@ committing row 40000
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Homework-Part-3">Homework Part 3<a class="anchor-link" href="#Homework-Part-3">&#182;</a></h3><h5 id="Count-hashtags">Count hashtags<a class="anchor-link" href="#Count-hashtags">&#182;</a></h5>
+<h3 id="Display-25-Rows-from-New-Hashtags-Table">Display 25 Rows from New Hashtags Table<a class="anchor-link" href="#Display-25-Rows-from-New-Hashtags-Table">&#182;</a></h3>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">con</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;tweets.db&#39;</span><span class="p">)</span>
+<span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;select * from hashtags limit 25&#39;</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+<span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>(&#39;1286890539355459586&#39;, &#39;#ripbernelltremmell&#39;)
+(&#39;1286890539183411200&#39;, &#39;#folklore,&#39;)
+(&#39;1286890538952687616&#39;, &#39;#mtvhottest&#39;)
+(&#39;1286890538801590272&#39;, &#39;#nishida&#39;)
+(&#39;1286890538801590272&#39;, &#39;#hinata&#39;)
+(&#39;1286890538801590272&#39;, &#39;#hoshiumi&#39;)
+(&#39;1286890538600292355&#39;, &#39;#pleaseloveme&#39;)
+(&#39;1286890538566737920&#39;, &#39;#ihaveajoke&#39;)
+(&#39;1286890538537488385&#39;, &#39;#japan&#39;)
+(&#39;1286890538537488385&#39;, &#39;#australia&#39;)
+(&#39;1286890538499596288&#39;, &#39;#triven&#39;)
+(&#39;1286890538386575360&#39;, &#39;#brexit&#39;)
+(&#39;1286890538377994240&#39;, &#39;#er_start_initial_alp_training_online&#39;)
+(&#39;1286890538214387714&#39;, &#39;#folkore&#39;)
+(&#39;1286890538197815297&#39;, &#39;#hr&#39;)
+(&#39;1286890538197815297&#39;, &#39;#employeeexper&#39;)
+(&#39;1286890538134716416&#39;, &#39;#dilbechara&#39;)
+(&#39;1286890537979719680&#39;, &#39;#1&#39;)
+(&#39;1286890537979719680&#39;, &#39;#mtvhottest&#39;)
+(&#39;1286890537899843585&#39;, &#39;#dilbechara&#39;)
+(&#39;1286890537899843585&#39;, &#39;#imdb&#39;)
+(&#39;1286890537899843585&#39;, &#39;#dilbechara&#39;)
+(&#39;1286890537874685954&#39;, &#39;#breaking:&#39;)
+(&#39;1286890537723801607&#39;, &#39;#houston,&#39;)
+(&#39;1286890537723650048&#39;, &#39;#truehumanitywarriors&#39;)
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="Homework-Part-3">Homework Part 3<a class="anchor-link" href="#Homework-Part-3">&#182;</a></h3><h5 id="Count-hashtags-using-SQL-Query">Count hashtags using SQL Query<a class="anchor-link" href="#Count-hashtags-using-SQL-Query">&#182;</a></h5>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14703,7 +14847,7 @@ committing row 40000
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Homework-part-4">Homework part 4<a class="anchor-link" href="#Homework-part-4">&#182;</a></h3>
+<h3 id="Homework-part-4">Homework part 4<a class="anchor-link" href="#Homework-part-4">&#182;</a></h3><h5 id="Count-Hashtags-using-python-dictionary">Count Hashtags using python dictionary<a class="anchor-link" href="#Count-Hashtags-using-python-dictionary">&#182;</a></h5>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14797,7 +14941,7 @@ committing row 40000
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Homework-Part-5">Homework Part 5<a class="anchor-link" href="#Homework-Part-5">&#182;</a></h3>
+<h3 id="Homework-Part-5">Homework Part 5<a class="anchor-link" href="#Homework-Part-5">&#182;</a></h3><h5 id="Plot-Hashtag-frequency-on-Bar-Plot">Plot Hashtag frequency on Bar Plot<a class="anchor-link" href="#Plot-Hashtag-frequency-on-Bar-Plot">&#182;</a></h5>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
